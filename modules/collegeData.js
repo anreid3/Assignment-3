@@ -100,44 +100,6 @@ module.exports.getStudentsByCourse = function (course) {
 
         resolve(filteredStudents);
     });
-}
-module.exports.updateStudent = function(num, updatedData) {
-    return new Promise((resolve, reject) => {
-        let found = false;
-
-        for (let i = 0; i < dataCollection.students.length; i++) {
-            if (dataCollection.students[i].studentNum == num) {
-                dataCollection.students[i] = { ...dataCollection.students[i], ...updatedData };
-                found = true;
-                break;
-            }
-        }
-
-        if (!found) {
-            reject("Student not found");
-        } else {
-            resolve(dataCollection.students);
-        }
-    });
-}
-
-module.exports.saveData = function() {
-    return new Promise((resolve, reject) => {
-        fs.writeFile('./data/students.json', JSON.stringify(dataCollection.students, null, 2), (err) => {
-            if (err) {
-                reject("Unable to save student data");
-            } else {
-                resolve();
-            }
-        });
-
-        fs.writeFile('./data/courses.json', JSON.stringify(dataCollection.courses, null, 2), (err) => {
-            if (err) {
-                reject("Unable to save course data");
-            } else {
-                resolve();
-            }
-        });
-    });
 };
+
 
