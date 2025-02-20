@@ -6,7 +6,7 @@ var path = require("path");
 
 // setup a 'route' to listen on the default url path
 var collegeData = require('./modules/collegeData');
-//var getAllStudents = collegeData.getAllStudents;
+
 
 //app.get("/", (req, res) => {
 //    res.send("Hello World!");
@@ -43,7 +43,6 @@ app.get("/courses", (req, res) => {
         });
 });
 
-// Route to return a single student by studentNum
 app.get("/student/:num", (req, res) => {
     collegeData.getStudentByNum(req.params.num)
         .then((student) => {
@@ -55,24 +54,21 @@ app.get("/student/:num", (req, res) => {
         });
 });
 
-// Route to return home.html
+
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "/views/home.html"));
 });
 
-// Route to return about.html
 app.get("/about", (req, res) => {
     res.sendFile(path.join(__dirname, "/views/about.html"));
 });
 
-// Route to return htmlDemo.html
 app.get("/htmlDemo", (req, res) => {
     res.sendFile(path.join(__dirname, "/views/htmlDemo.html"));
 });
 
 app.use((req, res) => {
     res.status(404).json({ message: "Page Not Found" });
-    // res.json({ message: "Page Not Found" }); // Alternatively, send custom message
 });
 collegeData.initialize()
     .then(() => {
